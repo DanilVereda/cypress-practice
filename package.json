@@ -1,0 +1,23 @@
+{
+  "name": "cypress-practice",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/DanilVereda/cypress-practice#readme",
+  "bugs": {
+    "url": "https://github.com/DanilVereda/cypress-practice/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanilVereda/cypress-practice.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "cypress": "^15.10.0"
+  }
+}
