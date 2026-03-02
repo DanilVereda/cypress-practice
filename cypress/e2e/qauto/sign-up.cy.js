@@ -24,7 +24,7 @@ describe('Sign-up form', () => {
     });
 
     it('Sign up with exist email', () => {
-      SignUpForm.signUp('Anatoliy', 'Ivanov', 'test1703@gmail.com', 'Qwerty123', 'Qwerty123');
+      SignUpForm.signUp('Anatoliy', 'Ivanov', Cypress.env('user').email, 'Qwerty123', 'Qwerty123');
       SignUpForm.userExistErrorMessage.should('have.text', 'User already exists');
     });
 
