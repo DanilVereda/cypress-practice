@@ -15,9 +15,10 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress:config2": "npx cypress run --config-file cypress2.config.js"
   },
   "devDependencies": {
-    "cypress": "^15.10.0"
+    "cypress": "^15.10.0",
+    "cypress-mochawesome-reporter": "^4.0.2"
   }
 }
