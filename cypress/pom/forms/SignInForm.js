@@ -19,7 +19,7 @@ class SignInForm {
     this.passwordField.type(password);
   }
 
-  login(email, password) {
+  login({ email, password }) {
     this.enterEmail(email);
     this.enterPassword(password);
     this.loginButton.click();

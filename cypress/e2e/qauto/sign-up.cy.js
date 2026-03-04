@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+import Sidebar from '../../pom/components/Sidebar';
 import SignInForm from '../../pom/forms/SignInForm';
 import SignUpForm from '../../pom/forms/SignUpForm';
 import GaragePage from '../../pom/pages/GaragePage';
@@ -32,10 +33,10 @@ describe('Sign-up form', () => {
       let email = `testmail+${Date.now()}@gmail.com`;
       SignUpForm.signUp('Anatoliy', 'Ivanov', email, 'Qwerty123', 'Qwerty123');
       GaragePage.pageTitle.should('have.text', 'Garage');
-      GaragePage.logout();
+      Sidebar.logout();
       HomePage.pageHeader.should('have.text', 'Do more!');
       HomePage.openSignInForm();
-      SignInForm.login(email, 'Qwerty123');
+      SignInForm.login({ email: email, password: 'Qwerty123' });
       GaragePage.pageTitle.should('have.text', 'Garage');
     });
   });
