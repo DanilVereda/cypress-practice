@@ -11,5 +11,9 @@ module.exports = defineConfig({
       email: 'test1703@gmail.com',
       password: 'Qwerty123',
     },
+    user1: {
+      email: 'test228@gmail.com',
+      password: 'Qwerty123',
+    },
   },
 });

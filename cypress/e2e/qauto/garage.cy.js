@@ -10,10 +10,21 @@ import { carsData } from '../../testData/cars';
 import { GarageFlows } from '../../support/flows/garage.flows';
 
 describe('Garage-management', () => {
+  let sid;
   beforeEach('Visit QAuto', () => {
     HomePage.visit();
     HomePage.openSignInForm();
     SignInForm.login({ email: Cypress.env('user').email, password: Cypress.env('user').password });
+
+    cy.request('POST', 'api/auth/signin', {
+      email: Cypress.env('user').email,
+      password: Cypress.env('user').password,
+    }).then((response) => {
+      cy.log(JSON.stringify(response.body));
+      const headers = response.headers;
+      sid = headers['set-cookie'][0].split(';')[0];
+      cy.log(sid);
+    });
   });
 
   context('Functional testing', () => {
@@ -37,11 +48,49 @@ describe('Garage-management', () => {
     });
   });
 
-  context('Add all cars (data-driven)', () => {
+  context.only('Add all cars (data-driven)', () => {
+    let car_id;
     afterEach('Delete cars', () => {
-      GaragePage.openEditCarForm();
-      EditCarForm.clickRemoveCarButton();
-      ConfirmModal.confirm();
+      // GaragePage.openEditCarForm();
+      // EditCarForm.clickRemoveCarButton();
+      // ConfirmModal.confirm();
+
+      // cy.request('GET', 'api/cars/').then((response) => {
+      //   const cars = response.body.data;
+      //   //   cy.log(JSON.stringify(cars));
+      //   car_id = cars[0].id;
+      // });
+
+      // cy.request({
+      //   method: 'DELETE',
+      //   url: `api/cars/${car_id}`,
+      //   headers: {
+      //     Cookie: sid,
+      //   },
+      // }).then((response) => {
+      //   expect(response.status).to.eq(200);
+      // });
+
+      cy.request({
+        method: 'GET',
+        url: 'api/cars',
+        headers: {
+          Cookie: sid,
+        },
+      }).then((response) => {
+        const cars = response.body.data;
+        car_id = cars[0].id;
+
+        cy.request({
+          method: 'DELETE',
+          url: `api/cars/${car_id}`,
+          headers: {
+            Cookie: sid,
+          },
+        }).then((deleteResponse) => {
+          expect(deleteResponse.status).to.eq(200);
+        });
+      });
     });
     Object.entries(carsData).forEach(([brand, models]) => {
       models.forEach((model) => {
